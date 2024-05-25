@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectCoin : MonoBehaviour
+public class CollectSkull : MonoBehaviour
 {
-    [SerializeField] private AudioSource coinFX;
+    [SerializeField] private AudioSource skullFX;
 
     private void OnTriggerEnter(Collider other)
     {
-        coinFX.Play();
-        CollectableController.numCoins++;
+        skullFX.Play();
         gameObject.SetActive(false);
     }
 }

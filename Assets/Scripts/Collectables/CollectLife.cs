@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectCoin : MonoBehaviour
+public class CollectLife : MonoBehaviour
 {
-    [SerializeField] private AudioSource coinFX;
+    [SerializeField] private AudioSource lifeFX;
 
     private void OnTriggerEnter(Collider other)
     {
-        coinFX.Play();
-        CollectableController.numCoins++;
+        lifeFX.Play();
         gameObject.SetActive(false);
     }
 }
