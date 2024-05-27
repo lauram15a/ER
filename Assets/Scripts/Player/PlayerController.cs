@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canJump = true;
     [SerializeField] private float upDistanceJump = 3f;
     [SerializeField] private float jumpDelay = 1f;
-    [SerializeField] private float originalYPosition;    
+    private float originalYPosition;
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObject;
@@ -100,12 +100,17 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator JumpSequence()
     {
+        float startY = transform.position.y;
         yield return new WaitForSeconds(jumpDelay);
         comingDown = true;
         yield return new WaitForSeconds(jumpDelay);
 
         isJumping = false;
         comingDown = false;
+
+        Vector3 currentPosition = transform.position;
+        currentPosition.y = startY;
+        transform.position = currentPosition;
 
         canJump = true;
 
@@ -128,4 +133,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
