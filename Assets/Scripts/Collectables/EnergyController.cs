@@ -11,7 +11,7 @@ public class EnergyController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             audioSource.Play();
-            PlayerManager.SetFastSpeed(this);
+            PlayerManager.Instance.SetFastSpeed();
             gameObject.SetActive(false);
         }
     }

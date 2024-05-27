@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float minSpeed = 2;
     [SerializeField] private float normalSpeed = 4;
     [SerializeField] private float maxSpeed = 6;
-    [SerializeField] private float resetSpeedDelay = 4f;
+    [SerializeField] private float resetSpeedDelayInstance = 4f;
     [SerializeField] private RunningType runningType;
 
     [Header("Animator")]
@@ -33,8 +33,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Audio Source")]
     public static AudioSource playerAudioSource;
 
-    [Header("Coroutine")]
-    private static Coroutine resetSpeedCoroutine;
+    private Coroutine resetSpeedCoroutine;
+    private float resetSpeedDelay;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
             Instance = this;
             playerAudioSource = GetComponent<AudioSource>();
             playerObject = playerObjectInstance;
+            resetSpeedDelay = resetSpeedDelayInstance;
         }
         else
         {
@@ -62,39 +63,39 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private static IEnumerator ResetSpeedAfterDelay()
+    private IEnumerator ResetSpeedAfterDelay()
     {
-        yield return new WaitForSeconds(Instance.resetSpeedDelay);
+        yield return new WaitForSeconds(resetSpeedDelay);
         ResetSpeed();
     }
 
-    public static void ResetSpeed()
+    public void ResetSpeed()
     {
-        Instance.speed = Instance.normalSpeed;
-        Instance.runningType = RunningType.Normal;
+        speed = normalSpeed;
+        runningType = RunningType.Normal;
         playerAudioSource.Play();
         playerObject.GetComponent<Animator>().Play("Medium Run");
     }
 
-    public static void SetSlowSpeed()
+    public void SetSlowSpeed()
     {
-        Instance.speed = Instance.minSpeed;
-        Instance.runningType = RunningType.Slow;
+        speed = minSpeed;
+        runningType = RunningType.Slow;
         playerAudioSource.Stop();
         playerObject.GetComponent<Animator>().Play("Slow Run");
     }
 
-    public static void SetFastSpeed(MonoBehaviour monoBehaviour)
+    public void SetFastSpeed()
     {
-        Instance.speed = Instance.maxSpeed;
-        Instance.runningType = RunningType.Fast;
+        speed = maxSpeed;
+        runningType = RunningType.Fast;
         playerObject.GetComponent<Animator>().Play("Fast Run");
 
         if (resetSpeedCoroutine != null)
         {
-            monoBehaviour.StopCoroutine(resetSpeedCoroutine);
+            StopCoroutine(resetSpeedCoroutine);
         }
-        resetSpeedCoroutine = monoBehaviour.StartCoroutine(ResetSpeedAfterDelay());
+        resetSpeedCoroutine = StartCoroutine(ResetSpeedAfterDelay());
     }
 
     #region Add collectables
@@ -144,6 +145,5 @@ public class PlayerManager : MonoBehaviour
     {
         return Instance.runningType;
     }
-
     #endregion
 }
