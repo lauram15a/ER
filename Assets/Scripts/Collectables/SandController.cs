@@ -12,7 +12,7 @@ public class SandController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             audioSource.Play();
-            PlayerManager.SetSlowSpeed();
+            PlayerManager.Instance.SetSlowSpeed();
         }
     }
 
@@ -21,7 +21,7 @@ public class SandController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             audioSource.Stop();
-            PlayerManager.ResetSpeed();
+            PlayerManager.Instance.ResetSpeed();
             gameObject.SetActive(false);
         }
     }
