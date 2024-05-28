@@ -18,6 +18,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int numLives = 3;
     [SerializeField] private int numDiamonds = 0;
 
+    [Header("Steps")]
+    [SerializeField] private int numSteps = 0;
+    [SerializeField] private bool canAddSteps = false;
+    [SerializeField] private float stepsDelayInstance;
+    [SerializeField] private float normalStepsDelayInstance = 0.5f;
+
     [Header("Speed")]
     [SerializeField] private float speed;
     [SerializeField] private float minSpeed = 2;
@@ -35,6 +41,8 @@ public class PlayerManager : MonoBehaviour
 
     private Coroutine resetSpeedCoroutine;
     private float resetSpeedDelay;
+    private float stepsDelay;
+    private float normalStepsDelay;
 
     private void Awake()
     {
@@ -44,6 +52,8 @@ public class PlayerManager : MonoBehaviour
             playerAudioSource = GetComponent<AudioSource>();
             playerObject = playerObjectInstance;
             resetSpeedDelay = resetSpeedDelayInstance;
+            normalStepsDelay = normalStepsDelayInstance;
+            stepsDelay = stepsDelayInstance;
         }
         else
         {
@@ -55,14 +65,35 @@ public class PlayerManager : MonoBehaviour
     {
         runningType = RunningType.Normal;
         speed = normalSpeed;
+        stepsDelay = normalStepsDelay;
         playerAudioSource.Play();
     }
 
     void Update()
     {
-
+        AddSteps();
     }
 
+    #region Steps
+    private void AddSteps()
+    {
+        if (!canAddSteps)
+        {
+            canAddSteps = true;
+            StartCoroutine(AddingSteps());
+        }
+    }
+
+    IEnumerator AddingSteps()
+    {
+        numSteps++;
+        yield return new WaitForSeconds(stepsDelay);
+        canAddSteps = false;
+    }
+
+    #endregion
+
+    #region Speed
     private IEnumerator ResetSpeedAfterDelay()
     {
         yield return new WaitForSeconds(resetSpeedDelay);
@@ -72,6 +103,7 @@ public class PlayerManager : MonoBehaviour
     public void ResetSpeed()
     {
         speed = normalSpeed;
+        stepsDelay = normalStepsDelay;
         runningType = RunningType.Normal;
         playerAudioSource.Play();
         playerObject.GetComponent<Animator>().Play("Medium Run");
@@ -80,6 +112,7 @@ public class PlayerManager : MonoBehaviour
     public void SetSlowSpeed()
     {
         speed = minSpeed;
+        stepsDelay = normalStepsDelay * 2;
         runningType = RunningType.Slow;
         playerAudioSource.Stop();
         playerObject.GetComponent<Animator>().Play("Slow Run");
@@ -88,6 +121,7 @@ public class PlayerManager : MonoBehaviour
     public void SetFastSpeed()
     {
         speed = maxSpeed;
+        stepsDelay = normalStepsDelay / 2;
         runningType = RunningType.Fast;
         playerObject.GetComponent<Animator>().Play("Fast Run");
 
@@ -97,6 +131,8 @@ public class PlayerManager : MonoBehaviour
         }
         resetSpeedCoroutine = StartCoroutine(ResetSpeedAfterDelay());
     }
+
+    #endregion
 
     #region Add collectables
     public static void AddCoin()
@@ -129,6 +165,11 @@ public class PlayerManager : MonoBehaviour
     public static int GetCoins()
     {
         return Instance.numCoins;
+    }
+
+    public static int GetSteps()
+    {
+        return Instance.numSteps;
     }
 
     public static int GetLives()

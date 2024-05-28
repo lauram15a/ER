@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
     [Header("Coins")]
     [SerializeField] private TextMeshProUGUI textNumCoins;
 
+    [Header("Steps")]
+    [SerializeField] private TextMeshProUGUI textNumSteps;
+
     [Header("Lives")]
     [SerializeField] private GameObject imageLife;
     [SerializeField] private GameObject imageLife1;
@@ -26,16 +29,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject imageNoDiamond2;
 
     private int numCoins;
+    private int numSteps;
     private int numLives;
     private int numDiamonds;
 
     void Update()
     {
         numCoins = PlayerManager.GetCoins();
+        numSteps = PlayerManager.GetSteps();
         numLives = PlayerManager.GetLives();
         numDiamonds = PlayerManager.GetDiamonds();
 
         CoinsManager();
+        StepsManager();
         LivesManager();
         DiamondsManager();
     }
@@ -43,6 +49,11 @@ public class UIManager : MonoBehaviour
     private void CoinsManager()
     {
         textNumCoins.text = "" + numCoins;
+    }
+
+    private void StepsManager()
+    {
+        textNumSteps.text = "" + numSteps;
     }
 
     private void LivesManager()
