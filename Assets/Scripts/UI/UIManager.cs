@@ -35,16 +35,17 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        numLives = PlayerManager.GetLives();
+        LivesManager();
+
         if (!PlayerManager.IsGameOver())
         {
             numCoins = PlayerManager.GetCoins();
             numSteps = PlayerManager.GetSteps();
-            numLives = PlayerManager.GetLives();
             numDiamonds = PlayerManager.GetDiamonds();
 
             CoinsManager();
             StepsManager();
-            LivesManager();
             DiamondsManager();
         }
     }

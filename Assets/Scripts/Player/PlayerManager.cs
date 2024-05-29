@@ -35,6 +35,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private GameObject playerObjectInstance;
 
+    [Header("Camera")]
+    [SerializeField] private GameObject playerCamera;
+    [SerializeField] private int collisionZPos = -4;
+
     [Header("Game")]
     [SerializeField] private bool isStarted = false;
     [SerializeField] private bool isGameOver = false;
@@ -76,7 +80,11 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        AddSteps();
+        if (!isGameOver)
+        {
+            AddSteps();
+            CheckGameOver();
+        }
     }
 
     #region Steps
@@ -137,6 +145,35 @@ public class PlayerManager : MonoBehaviour
         resetSpeedCoroutine = StartCoroutine(ResetSpeedAfterDelay());
     }
 
+    #endregion
+
+    #region Collision
+    public void CollisionManager()
+    {
+        Die();
+    }
+    #endregion
+
+    #region GameOver
+
+    private void Die()
+    {
+        playerObject.GetComponent<Animator>().Play("Falling Back Death");
+
+        Vector3 cameraPosition = playerCamera.transform.position;
+        cameraPosition.z = collisionZPos;
+        playerCamera.transform.position = cameraPosition;
+
+        numLives = 0;
+        isGameOver = true;
+    }
+    private void CheckGameOver()
+    {
+        if (numLives == 0)
+        {
+            Die();
+        }
+    }
     #endregion
 
     #region Add collectables
@@ -205,11 +242,6 @@ public class PlayerManager : MonoBehaviour
     public static bool IsGameOver()
     {
         return Instance.isGameOver;
-    }
-
-    public static void SetIsGameOver(bool v)
-    {
-        Instance.isGameOver = v;
     }
     #endregion
 }
