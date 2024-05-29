@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SandController : MonoBehaviour
 {
-
+    [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +22,6 @@ public class SandController : MonoBehaviour
         {
             audioSource.Stop();
             PlayerManager.Instance.ResetSpeed();
-            gameObject.SetActive(false);
         }
     }
 }

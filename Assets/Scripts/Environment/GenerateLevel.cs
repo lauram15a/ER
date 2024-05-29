@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class GenerateLevel : MonoBehaviour
 {
+    [Header("Sections")]
     [SerializeField] private GameObject[] sections;
-    [SerializeField] private int zPos = 50;
-    [SerializeField] private int zVariation = 50;
     [SerializeField] private bool creatingSection = false;
     [SerializeField] private int sectionID;
     [SerializeField] private int numSections = 0;
+
+    [Header("Z position")]
+    [SerializeField] private int zPos = 50;
+    [SerializeField] private int zVariation = 50;
+
+    [Header("Delaies")]
     [SerializeField] private float generateLevelDelay;
     [SerializeField] private float normalGenerateLevelDelay = 5;
     [SerializeField] private float pauseGenerateLevelDelay = 20;
@@ -17,10 +22,13 @@ public class GenerateLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!creatingSection)
+        if (!PlayerManager.IsGameOver())
         {
-            creatingSection = true;
-            StartCoroutine(GenerateSection());
+            if (!creatingSection)
+            {
+                creatingSection = true;
+                StartCoroutine(GenerateSection());
+            }
         }
     }
 

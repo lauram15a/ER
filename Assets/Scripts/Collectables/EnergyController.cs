@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnergyController : MonoBehaviour
 {
+    [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
 
     private void OnTriggerEnter(Collider other)

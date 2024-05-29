@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class LevelStarter : MonoBehaviour
 {
-    public GameObject countDown3;
-    public GameObject countDown2;
-    public GameObject countDown1;
-    public GameObject countDownGo;
-    public GameObject fadeIn;
+    [Header("Canvas")]
+    [SerializeField] private GameObject countDown3;
+    [SerializeField] private GameObject countDown2;
+    [SerializeField] private GameObject countDown1;
+    [SerializeField] private GameObject countDownGo;
+    [SerializeField] private GameObject fadeIn;
+    [SerializeField] private GameObject ui;
+
+    [Header("Audios")]
+    [SerializeField] private AudioSource countdownAudioSource;
+    [SerializeField] private AudioSource bgmAudioSource;    
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +26,7 @@ public class LevelStarter : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         countDown3.SetActive(true);
+        countdownAudioSource.Play();
         yield return new WaitForSeconds(1);
 
         countDown2.SetActive(true);
@@ -33,5 +40,9 @@ public class LevelStarter : MonoBehaviour
         countDownGo.SetActive(true);
         countDown1.SetActive(false);
         yield return new WaitForSeconds(1);
+
+        PlayerManager.SetIsStarted(true);
+        ui.SetActive(true);
+        bgmAudioSource.Play();
     }
 }
