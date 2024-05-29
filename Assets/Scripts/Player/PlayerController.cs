@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("Move")]
     [SerializeField] private float speed;
     [SerializeField] private float leftRightSpeed;
-    static public bool canMove = true;
+    [SerializeField] private bool canMove = false;
 
     [Header("Jump")]
     [SerializeField] private bool isJumping = false;
@@ -28,10 +28,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        speed = PlayerManager.GetSpeed();
-        leftRightSpeed = speed;
-        Movement();
-        animationName = playerObject.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        if (!PlayerManager.IsGameOver())
+        {
+            canMove = PlayerManager.IsStarted();
+            speed = PlayerManager.GetSpeed();
+            leftRightSpeed = speed;
+            Movement();
+            animationName = playerObject.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        }
     }
 
     private void Movement()

@@ -34,6 +34,11 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObjectInstance;
+
+    [Header("Game")]
+    [SerializeField] private bool isStarted = false;
+    [SerializeField] private bool isGameOver = false;
+
     public static GameObject playerObject { get; private set; }
 
     [Header("Audio Source")]
@@ -156,7 +161,7 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    #region Getters
+    #region Getters y setters
     public static float GetSpeed()
     {
         return Instance.speed;
@@ -185,6 +190,26 @@ public class PlayerManager : MonoBehaviour
     public static RunningType GetRunningType()
     {
         return Instance.runningType;
+    }
+
+    public static bool IsStarted()
+    {
+        return Instance.isStarted;
+    }
+
+    public static void SetIsStarted(bool v)
+    {
+        Instance.isStarted = v;
+    }
+
+    public static bool IsGameOver()
+    {
+        return Instance.isGameOver;
+    }
+
+    public static void SetIsGameOver(bool v)
+    {
+        Instance.isGameOver = v;
     }
     #endregion
 }
