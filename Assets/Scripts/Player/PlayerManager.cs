@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum RunningType
@@ -163,9 +164,11 @@ public class PlayerManager : MonoBehaviour
     {
         playerObject.GetComponent<Animator>().Play("Falling Back Death");
 
+        playerCamera.GetComponent<Animator>().Play("CameraShake");
+
         Vector3 cameraPosition = playerCamera.transform.position;
         cameraPosition.z = collisionZPos;
-        playerCamera.transform.position = cameraPosition;
+        playerCamera.transform.position = cameraPosition;        
 
         numLives = 0;
         isGameOver = true;
