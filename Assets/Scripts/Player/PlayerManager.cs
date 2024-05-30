@@ -82,8 +82,11 @@ public class PlayerManager : MonoBehaviour
     {
         if (!isGameOver)
         {
-            AddSteps();
-            CheckGameOver();
+            if (isStarted)
+            {
+                AddSteps();
+                CheckGameOver();
+            }
         }
     }
 
