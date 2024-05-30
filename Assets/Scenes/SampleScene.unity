@@ -6350,7 +6350,7 @@ MonoBehaviour:
   runningType: 0
   playerObjectInstance: {fileID: 863817458}
   playerCamera: {fileID: 963194225}
-  collisionZPos: -4
+  collisionZPos: -2
   isStarted: 0
   isGameOver: 0
 --- !u!82 &565051284

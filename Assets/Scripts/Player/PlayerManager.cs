@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private GameObject playerCamera;
-    [SerializeField] private int collisionZPos = -4;
+    [SerializeField] private int collisionZPos = -2;
 
     [Header("Game")]
     [SerializeField] private bool isStarted = false;
