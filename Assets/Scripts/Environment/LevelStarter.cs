@@ -22,6 +22,14 @@ public class LevelStarter : MonoBehaviour
         StartCoroutine(CountDownSequence());
     }
 
+    private void Update()
+    {
+        if (PlayerManager.IsGameOver())
+        {
+            bgmAudioSource.Stop();
+        }
+    }
+
     IEnumerator CountDownSequence()
     {
         yield return new WaitForSeconds(1.5f);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum RunningType
@@ -34,6 +35,10 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObjectInstance;
+
+    [Header("Camera")]
+    [SerializeField] private GameObject playerCamera;
+    [SerializeField] private int collisionZPos = -2;
 
     [Header("Game")]
     [SerializeField] private bool isStarted = false;
@@ -76,7 +81,14 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        AddSteps();
+        if (!isGameOver)
+        {
+            if (isStarted)
+            {
+                AddSteps();
+                CheckGameOver();
+            }
+        }
     }
 
     #region Steps
@@ -137,6 +149,37 @@ public class PlayerManager : MonoBehaviour
         resetSpeedCoroutine = StartCoroutine(ResetSpeedAfterDelay());
     }
 
+    #endregion
+
+    #region Collision
+    public void CollisionManager()
+    {
+        Die();
+    }
+    #endregion
+
+    #region GameOver
+
+    private void Die()
+    {
+        playerObject.GetComponent<Animator>().Play("Falling Back Death");
+
+        playerCamera.GetComponent<Animator>().Play("CameraShake");
+
+        Vector3 cameraPosition = playerCamera.transform.position;
+        cameraPosition.z = collisionZPos;
+        playerCamera.transform.position = cameraPosition;        
+
+        numLives = 0;
+        isGameOver = true;
+    }
+    private void CheckGameOver()
+    {
+        if (numLives == 0)
+        {
+            Die();
+        }
+    }
     #endregion
 
     #region Add collectables
@@ -205,11 +248,6 @@ public class PlayerManager : MonoBehaviour
     public static bool IsGameOver()
     {
         return Instance.isGameOver;
-    }
-
-    public static void SetIsGameOver(bool v)
-    {
-        Instance.isGameOver = v;
     }
     #endregion
 }
