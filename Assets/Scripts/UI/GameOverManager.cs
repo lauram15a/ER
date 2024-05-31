@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameOverManager : CanvasManager
 {
+    [Header("Personal Record")]
+    [SerializeField] private TextMeshProUGUI personalStepsRecordText;
+    [SerializeField] private TextMeshProUGUI personalCoinsRecordText;
+
     [Header("Audio")]
     [SerializeField] private AudioSource gameOverAudioSource;
     [SerializeField] private bool isaudioPlaying = false;
@@ -13,19 +17,23 @@ public class GameOverManager : CanvasManager
     {
         if (GameManager.IsGameOver())
         {
-            PlayaudioSource();
+            PlayAudioSource();
 
             numSteps = PlayerManager.GetSteps();
             numCoins = PlayerManager.GetCoins();
             numDiamonds = PlayerManager.GetDiamonds();
 
-            CoinsManager();
             StepsManager();
+            CoinsManager();
             DiamondsManager();
+
+            RecordManager.PersonalRecordManager();
+            personalStepsRecordText.text = RecordManager.GetPersonalStepsRecord().ToString();
+            personalCoinsRecordText.text = RecordManager.GetPersonalCoinsRecord().ToString();
         }
     }
 
-    private void PlayaudioSource()
+    private void PlayAudioSource()
     {
         if (!isaudioPlaying)
         {
