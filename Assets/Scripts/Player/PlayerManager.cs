@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
     private float resetSpeedDelay;
     private float stepsDelay;
     private float normalStepsDelay;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -115,11 +115,14 @@ public class PlayerManager : MonoBehaviour
 
     public void ResetSpeed()
     {
-        speed = normalSpeed;
-        stepsDelay = normalStepsDelay;
-        runningType = RunningType.Normal;
-        playerAudioSource.Play();
-        playerObject.GetComponent<Animator>().Play("Medium Run");
+        if (!GameManager.IsGameOver())
+        {
+            speed = normalSpeed;
+            stepsDelay = normalStepsDelay;
+            runningType = RunningType.Normal;
+            playerAudioSource.Play();
+            playerObject.GetComponent<Animator>().Play("Medium Run");
+        }   
     }
 
     public void SetSlowSpeed()
@@ -163,12 +166,13 @@ public class PlayerManager : MonoBehaviour
         playerCamera.GetComponent<Animator>().Play("CameraShake");
 
         Vector3 cameraPosition = playerCamera.transform.position;
-        cameraPosition.z = collisionZPos;
-        playerCamera.transform.position = cameraPosition;        
+        cameraPosition.z = cameraPosition.z + collisionZPos;
+        playerCamera.transform.position = cameraPosition;
 
         numLives = 0;
         GameManager.SetIsGameOver(true);
     }
+
     private void CheckGameOver()
     {
         if (numLives == 0)
