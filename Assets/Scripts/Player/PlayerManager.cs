@@ -40,11 +40,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private int collisionZPos = -2;
 
-    [Header("Game")]
-    [SerializeField] private bool isStarted = false;
-    [SerializeField] private bool isGameOver = false;
-
-    public static GameObject playerObject { get; private set; }
+    private static GameObject playerObject;
 
     [Header("Audio Source")]
     public static AudioSource playerAudioSource;
@@ -81,9 +77,9 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameOver)
+        if (!GameManager.IsGameOver())
         {
-            if (isStarted)
+            if (GameManager.IsStarted())
             {
                 AddSteps();
                 CheckGameOver();
@@ -171,7 +167,7 @@ public class PlayerManager : MonoBehaviour
         playerCamera.transform.position = cameraPosition;        
 
         numLives = 0;
-        isGameOver = true;
+        GameManager.SetIsGameOver(true);
     }
     private void CheckGameOver()
     {
@@ -233,21 +229,6 @@ public class PlayerManager : MonoBehaviour
     public static RunningType GetRunningType()
     {
         return Instance.runningType;
-    }
-
-    public static bool IsStarted()
-    {
-        return Instance.isStarted;
-    }
-
-    public static void SetIsStarted(bool v)
-    {
-        Instance.isStarted = v;
-    }
-
-    public static bool IsGameOver()
-    {
-        return Instance.isGameOver;
     }
     #endregion
 }

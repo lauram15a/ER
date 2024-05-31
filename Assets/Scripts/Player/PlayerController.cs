@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!PlayerManager.IsGameOver())
+        if (!GameManager.IsGameOver())
         {
-            canMove = PlayerManager.IsStarted();
+            canMove = GameManager.IsStarted();
             speed = PlayerManager.GetSpeed();
             leftRightSpeed = speed;
             Movement();

@@ -10,7 +10,7 @@ public class LevelStarter : MonoBehaviour
     [SerializeField] private GameObject countDown1;
     [SerializeField] private GameObject countDownGo;
     [SerializeField] private GameObject fadeIn;
-    [SerializeField] private GameObject ui;
+    //[SerializeField] private GameObject ui;
 
     [Header("Audios")]
     [SerializeField] private AudioSource countdownAudioSource;
@@ -19,12 +19,13 @@ public class LevelStarter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fadeIn.SetActive(true);
         StartCoroutine(CountDownSequence());
     }
 
     private void Update()
     {
-        if (PlayerManager.IsGameOver())
+        if (GameManager.IsGameOver())
         {
             bgmAudioSource.Stop();
         }
@@ -49,8 +50,8 @@ public class LevelStarter : MonoBehaviour
         countDown1.SetActive(false);
         yield return new WaitForSeconds(1);
 
-        PlayerManager.SetIsStarted(true);
-        ui.SetActive(true);
+        GameManager.SetIsStarted(true);
+        GameManager.GetUI().SetActive(true);
         bgmAudioSource.Play();
     }
 }
