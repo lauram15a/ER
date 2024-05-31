@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!PlayerManager.IsGameOver())
+        if (!GameManager.IsGameOver())
         {
-            canMove = PlayerManager.IsStarted();
+            canMove = GameManager.IsStarted();
             speed = PlayerManager.GetSpeed();
             leftRightSpeed = speed;
             Movement();
@@ -123,17 +123,20 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        if (PlayerManager.GetRunningType() == RunningType.Slow)
+        if (!GameManager.IsGameOver())
         {
-            playerObject.GetComponent<Animator>().Play("Slow Run");
-        }
-        else if (PlayerManager.GetRunningType() == RunningType.Normal)
-        {
-            playerObject.GetComponent<Animator>().Play("Medium Run");
-        }
-        else if (PlayerManager.GetRunningType() == RunningType.Fast)
-        {
-            playerObject.GetComponent<Animator>().Play("Fast Run");
+            if (PlayerManager.GetRunningType() == RunningType.Slow)
+            {
+                playerObject.GetComponent<Animator>().Play("Slow Run");
+            }
+            else if (PlayerManager.GetRunningType() == RunningType.Normal)
+            {
+                playerObject.GetComponent<Animator>().Play("Medium Run");
+            }
+            else if (PlayerManager.GetRunningType() == RunningType.Fast)
+            {
+                playerObject.GetComponent<Animator>().Play("Fast Run");
+            }
         }
     }
 }

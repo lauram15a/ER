@@ -40,11 +40,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private int collisionZPos = -2;
 
-    [Header("Game")]
-    [SerializeField] private bool isStarted = false;
-    [SerializeField] private bool isGameOver = false;
-
-    public static GameObject playerObject { get; private set; }
+    private static GameObject playerObject;
 
     [Header("Audio Source")]
     public static AudioSource playerAudioSource;
@@ -53,7 +49,7 @@ public class PlayerManager : MonoBehaviour
     private float resetSpeedDelay;
     private float stepsDelay;
     private float normalStepsDelay;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -81,9 +77,9 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameOver)
+        if (!GameManager.IsGameOver())
         {
-            if (isStarted)
+            if (GameManager.IsStarted())
             {
                 AddSteps();
                 CheckGameOver();
@@ -119,11 +115,14 @@ public class PlayerManager : MonoBehaviour
 
     public void ResetSpeed()
     {
-        speed = normalSpeed;
-        stepsDelay = normalStepsDelay;
-        runningType = RunningType.Normal;
-        playerAudioSource.Play();
-        playerObject.GetComponent<Animator>().Play("Medium Run");
+        if (!GameManager.IsGameOver())
+        {
+            speed = normalSpeed;
+            stepsDelay = normalStepsDelay;
+            runningType = RunningType.Normal;
+            playerAudioSource.Play();
+            playerObject.GetComponent<Animator>().Play("Medium Run");
+        }   
     }
 
     public void SetSlowSpeed()
@@ -167,12 +166,13 @@ public class PlayerManager : MonoBehaviour
         playerCamera.GetComponent<Animator>().Play("CameraShake");
 
         Vector3 cameraPosition = playerCamera.transform.position;
-        cameraPosition.z = collisionZPos;
-        playerCamera.transform.position = cameraPosition;        
+        cameraPosition.z = cameraPosition.z + collisionZPos;
+        playerCamera.transform.position = cameraPosition;
 
         numLives = 0;
-        isGameOver = true;
+        GameManager.SetIsGameOver(true);
     }
+
     private void CheckGameOver()
     {
         if (numLives == 0)
@@ -233,21 +233,6 @@ public class PlayerManager : MonoBehaviour
     public static RunningType GetRunningType()
     {
         return Instance.runningType;
-    }
-
-    public static bool IsStarted()
-    {
-        return Instance.isStarted;
-    }
-
-    public static void SetIsStarted(bool v)
-    {
-        Instance.isStarted = v;
-    }
-
-    public static bool IsGameOver()
-    {
-        return Instance.isGameOver;
     }
     #endregion
 }

@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : CanvasManager
 {
-    [Header("Coins")]
-    [SerializeField] private TextMeshProUGUI textNumCoins;
-
-    [Header("Steps")]
-    [SerializeField] private TextMeshProUGUI textNumSteps;
-
     [Header("Lives")]
     [SerializeField] private GameObject imageLife;
     [SerializeField] private GameObject imageLife1;
@@ -20,25 +14,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject imageNoLife1;
     [SerializeField] private GameObject imageNoLife2;
 
-    [Header("Diamonds")]
-    [SerializeField] private GameObject imageDiamond;
-    [SerializeField] private GameObject imageDiamond1;
-    [SerializeField] private GameObject imageDiamond2;
-    [SerializeField] private GameObject imageNoDiamond;
-    [SerializeField] private GameObject imageNoDiamond1;
-    [SerializeField] private GameObject imageNoDiamond2;
-
-    private int numCoins;
-    private int numSteps;
-    private int numLives;
-    private int numDiamonds;
+    protected int numLives;
 
     void Update()
     {
         numLives = PlayerManager.GetLives();
         LivesManager();
 
-        if (!PlayerManager.IsGameOver())
+        if (!GameManager.IsGameOver())
         {
             numCoins = PlayerManager.GetCoins();
             numSteps = PlayerManager.GetSteps();
@@ -48,16 +31,6 @@ public class UIManager : MonoBehaviour
             StepsManager();
             DiamondsManager();
         }
-    }
-
-    private void CoinsManager()
-    {
-        textNumCoins.text = "" + numCoins;
-    }
-
-    private void StepsManager()
-    {
-        textNumSteps.text = "" + numSteps;
     }
 
     private void LivesManager()
@@ -114,43 +87,4 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void DiamondsManager()
-    {
-        if (numDiamonds == 0)
-        {
-            imageDiamond.SetActive(false);
-            imageDiamond1.SetActive(false);
-            imageDiamond2.SetActive(false);
-            imageNoDiamond.SetActive(true);
-            imageNoDiamond1.SetActive(true);
-            imageNoDiamond2.SetActive(true);
-        }
-        else if (numDiamonds == 1)
-        {
-            imageDiamond.SetActive(false);
-            imageDiamond1.SetActive(false);
-            imageDiamond2.SetActive(true);
-            imageNoDiamond.SetActive(true);
-            imageNoDiamond1.SetActive(true);
-            imageNoDiamond2.SetActive(false);
-        }
-        else if (numDiamonds == 2)
-        {
-            imageDiamond.SetActive(false);
-            imageDiamond1.SetActive(true);
-            imageDiamond2.SetActive(true);
-            imageNoDiamond.SetActive(true);
-            imageNoDiamond1.SetActive(false);
-            imageNoDiamond2.SetActive(false);
-        }
-        else if (numDiamonds == 3)
-        {
-            imageDiamond.SetActive(true);
-            imageDiamond1.SetActive(true);
-            imageDiamond2.SetActive(true);
-            imageNoDiamond.SetActive(false);
-            imageNoDiamond1.SetActive(false);
-            imageNoDiamond2.SetActive(false);
-        }
-    }
 }
