@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int numLives;
     [SerializeField] private int numDiamonds = 0;
     [SerializeField] private int maxNumLives = 3;
+    [SerializeField] private int maxNumDiamonds = 3;
 
     [Header("Steps")]
     [SerializeField] private int numSteps = 0;
@@ -205,7 +206,10 @@ public class PlayerManager : MonoBehaviour
 
     public static void AddDiamond()
     {
-        Instance.numDiamonds++;
+        if (Instance.numDiamonds < Instance.maxNumDiamonds)
+        {
+            Instance.numDiamonds++;
+        }
     }
     #endregion
 
