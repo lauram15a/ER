@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Device;
 
 public class GameManager : MonoBehaviour
 {
     [Header("UI GameObjects")]
-    [SerializeField] private GameObject uiScreen;
-    [SerializeField] private GameObject gameoverUIScreen;
+    [SerializeField] private GameObject uiScreenInstance;
+    [SerializeField] private GameObject gameoverScreenInstance;
 
     [Header("Game")]
     [SerializeField] private static bool isStarted = false;
     [SerializeField] private static bool isGameOver = false;
 
-    private static GameObject ui;    
-    private static GameObject gameoverUI;
+    private static GameObject uiScreen;    
+    private static GameObject gameoverScreen;
 
     public object Instance { get; private set; }
 
@@ -22,8 +23,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            ui = uiScreen;
-            gameoverUI = gameoverUIScreen;
+            uiScreen = uiScreenInstance;
+            gameoverScreen = gameoverScreenInstance;
         }
         else
         {
@@ -32,7 +33,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
+        isStarted = false;
+        isGameOver = false;
     }
 
     // Update is called once per frame
@@ -40,15 +42,20 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver)
         {
-            ui.SetActive(false);
-            gameoverUI.SetActive(true);
+            uiScreen.SetActive(false);
+            gameoverScreen.SetActive(true);
         }
     }
 
     #region Getters and Setters
-    public static GameObject GetUI()
+    public static GameObject GetUIScreen()
     {
-        return ui;
+        return uiScreen;
+    }
+
+    public static GameObject GetGameOverScreen()
+    {
+        return gameoverScreen;
     }
 
     public static bool IsStarted()

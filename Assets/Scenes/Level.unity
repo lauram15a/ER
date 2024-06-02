@@ -14685,8 +14685,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244ba8fc5ab175448b9529fa9df51b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiScreen: {fileID: 263792527}
-  gameoverUIScreen: {fileID: 1583100149}
+  uiScreenInstance: {fileID: 263792527}
+  gameoverScreenInstance: {fileID: 1583100149}
 --- !u!224 &974542739
 RectTransform:
   m_ObjectHideFlags: 0

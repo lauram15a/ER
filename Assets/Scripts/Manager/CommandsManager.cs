@@ -35,6 +35,10 @@ public class CommandsManager : MonoBehaviour
 
     private void RestartGame()
     {
+        GameManager.GetGameOverScreen().SetActive(false);
+        GameManager.GetUIScreen().SetActive(false);
+        GameManager.SetIsGameOver(false);
+        GameManager.SetIsStarted(false);
         SceneManager.LoadScene(1);
     }
 
