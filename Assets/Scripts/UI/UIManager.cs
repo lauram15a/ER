@@ -9,7 +9,6 @@ public class UIManager : CanvasManager
     [SerializeField] private GameObject imageLife;
     [SerializeField] private GameObject imageLife1;
     [SerializeField] private GameObject imageLife2;
-    [SerializeField] private GameObject imageLife3;
     [SerializeField] private GameObject imageNoLife;
     [SerializeField] private GameObject imageNoLife1;
     [SerializeField] private GameObject imageNoLife2;
@@ -40,7 +39,6 @@ public class UIManager : CanvasManager
             imageLife.SetActive(false);
             imageLife1.SetActive(false);
             imageLife2.SetActive(false);
-            imageLife3.SetActive(false);
             imageNoLife.SetActive(true);
             imageNoLife1.SetActive(true);
             imageNoLife2.SetActive(true);
@@ -50,7 +48,6 @@ public class UIManager : CanvasManager
             imageLife.SetActive(true);
             imageLife1.SetActive(false);
             imageLife2.SetActive(false);
-            imageLife3.SetActive(false);
             imageNoLife.SetActive(false);
             imageNoLife1.SetActive(true);
             imageNoLife2.SetActive(true);
@@ -60,7 +57,6 @@ public class UIManager : CanvasManager
             imageLife.SetActive(true);
             imageLife1.SetActive(true);
             imageLife2.SetActive(false);
-            imageLife3.SetActive(false);
             imageNoLife.SetActive(false);
             imageNoLife1.SetActive(false);
             imageNoLife2.SetActive(true);
@@ -70,7 +66,6 @@ public class UIManager : CanvasManager
             imageLife.SetActive(true);
             imageLife1.SetActive(true);
             imageLife2.SetActive(true);
-            imageLife3.SetActive(false);
             imageNoLife.SetActive(false);
             imageNoLife1.SetActive(false);
             imageNoLife2.SetActive(false);
@@ -80,7 +75,6 @@ public class UIManager : CanvasManager
             imageLife.SetActive(true);
             imageLife1.SetActive(true);
             imageLife2.SetActive(true);
-            imageLife3.SetActive(true);
             imageNoLife.SetActive(false);
             imageNoLife1.SetActive(false);
             imageNoLife2.SetActive(false);

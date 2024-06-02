@@ -16,8 +16,10 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Collectables")]
     [SerializeField] private int numCoins = 0;
-    [SerializeField] private int numLives = 3;
+    [SerializeField] private int numLives;
     [SerializeField] private int numDiamonds = 0;
+    [SerializeField] private int maxNumLives = 3;
+    [SerializeField] private int maxNumDiamonds = 3;
 
     [Header("Steps")]
     [SerializeField] private int numSteps = 0;
@@ -69,6 +71,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+        numLives = maxNumLives;
         runningType = RunningType.Normal;
         speed = normalSpeed;
         stepsDelay = normalStepsDelay;
@@ -190,7 +193,10 @@ public class PlayerManager : MonoBehaviour
 
     public static void AddLife()
     {
-        Instance.numLives++;
+        if (Instance.numLives < Instance.maxNumLives)
+        {
+            Instance.numLives++;
+        }
     }
 
     public static void SubtractLife()
@@ -200,7 +206,10 @@ public class PlayerManager : MonoBehaviour
 
     public static void AddDiamond()
     {
-        Instance.numDiamonds++;
+        if (Instance.numDiamonds < Instance.maxNumDiamonds)
+        {
+            Instance.numDiamonds++;
+        }
     }
     #endregion
 
