@@ -26,12 +26,6 @@ public class RecordManager : MonoBehaviour
             personalCoinsRecord = numCoins;
             SavePersonalCoinsRecord();
         }
-
-        Debug.Log("Current Steps: " + numSteps);
-        Debug.Log("Steps Record: " + personalStepsRecord);
-
-        Debug.Log("Current coins: " + numCoins);
-        Debug.Log("Coins Record: " + personalCoinsRecord);
     }
 
     private static void SavePersonalStepsRecord()
@@ -75,7 +69,7 @@ public class RecordManager : MonoBehaviour
         personalCoinsRecord = 0;
     }
 
-    #region
+    #region Getters
     public static int GetPersonalStepsRecord()
     {
         return personalStepsRecord;

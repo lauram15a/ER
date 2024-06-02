@@ -53,14 +53,12 @@ public class CommandsManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         pauseScreen.SetActive(true);
-        Debug.Log("Game paused...");
     }
 
     private void ResumeGame()
     {
         Time.timeScale = 1f; 
         pauseScreen.SetActive(false);
-        Debug.Log("Game resumed...");
     }
 
     private void QuitGame()
