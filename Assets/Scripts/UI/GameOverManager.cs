@@ -11,7 +11,7 @@ public class GameOverManager : CanvasManager
 
     [Header("Audio")]
     [SerializeField] private AudioSource gameOverAudioSource;
-    [SerializeField] private bool isaudioPlaying = false;
+    [SerializeField] private bool isAudioPlaying = false;
 
     private void Update()
     {
@@ -35,10 +35,10 @@ public class GameOverManager : CanvasManager
 
     private void PlayAudioSource()
     {
-        if (!isaudioPlaying)
+        if (!isAudioPlaying)
         {
             gameOverAudioSource.Play();
-            isaudioPlaying = true;
+            isAudioPlaying = true;
         }
     }
 }

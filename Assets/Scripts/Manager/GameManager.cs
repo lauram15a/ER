@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [Header("UI GameObjects")]
-    [SerializeField] private GameObject uiInstance;
-    [SerializeField] private GameObject gameoverUIInstance;
+    [SerializeField] private GameObject uiScreen;
+    [SerializeField] private GameObject gameoverUIScreen;
 
     [Header("Game")]
     [SerializeField] private static bool isStarted = false;
@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            ui = uiInstance;
-            gameoverUI = gameoverUIInstance;
+            ui = uiScreen;
+            gameoverUI = gameoverUIScreen;
         }
         else
         {
