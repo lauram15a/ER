@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class CommandsManager : MonoBehaviour
 {
+    [Header("Pause")]
+    [SerializeField] private GameObject pauseScreen;
     private bool isGamePaused = false;
 
     void Update()
@@ -49,15 +51,15 @@ public class CommandsManager : MonoBehaviour
 
     private void PauseGame()
     {
-        Time.timeScale = 0f; // Pausar el tiempo del juego
-        // Aquí puedes mostrar un menú de pausa si lo tienes
+        Time.timeScale = 0f;
+        pauseScreen.SetActive(true);
         Debug.Log("Game paused...");
     }
 
     private void ResumeGame()
     {
-        Time.timeScale = 1f; // Reanudar el tiempo del juego
-        // Aquí puedes ocultar el menú de pausa si lo tienes
+        Time.timeScale = 1f; 
+        pauseScreen.SetActive(false);
         Debug.Log("Game resumed...");
     }
 
