@@ -18,21 +18,24 @@ public class CommandsManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                QuitGame();
+                SceneManager.LoadScene(0);
             }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (GameManager.IsStarted())
             {
-                TogglePause();
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    TogglePause();
+                }
             }
         }
     }
 
     private void RestartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(1);
     }
 
     private void TogglePause()
@@ -61,8 +64,8 @@ public class CommandsManager : MonoBehaviour
         pauseScreen.SetActive(false);
     }
 
-    private void QuitGame()
-    {
-        Application.Quit();
-    }
+    //private void QuitGame()
+    //{
+    //    Application.Quit();
+    //}
 }
