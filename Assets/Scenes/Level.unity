@@ -8547,6 +8547,7 @@ MonoBehaviour:
   numCoins: 0
   numLives: 3
   numDiamonds: 0
+  maxNumLives: 3
   numSteps: 0
   canAddSteps: 0
   stepsDelayInstance: 0
@@ -12913,78 +12914,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &867693857
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 867693858}
-  - component: {fileID: 867693860}
-  - component: {fileID: 867693859}
-  m_Layer: 5
-  m_Name: ImageLife (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &867693858
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867693857}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1639241853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1711, y: -44.327454}
-  m_SizeDelta: {x: 60, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &867693859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867693857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 17a64081578bfb1498df4f9a413b2922, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &867693860
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867693857}
-  m_CullTransparentMesh: 1
 --- !u!1 &872220986
 GameObject:
   m_ObjectHideFlags: 0
@@ -14800,7 +14729,6 @@ MonoBehaviour:
   imageLife: {fileID: 1839605268}
   imageLife1: {fileID: 760915402}
   imageLife2: {fileID: 1625633460}
-  imageLife3: {fileID: 867693857}
   imageNoLife: {fileID: 477769995}
   imageNoLife1: {fileID: 1975830707}
   imageNoLife2: {fileID: 215297462}
@@ -14827,7 +14755,7 @@ MonoBehaviour:
   personalStepsRecordText: {fileID: 640525574}
   personalCoinsRecordText: {fileID: 199523137}
   gameOverAudioSource: {fileID: 593757689}
-  isaudioPlaying: 0
+  isAudioPlaying: 0
 --- !u!114 &974542742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22317,7 +22245,6 @@ RectTransform:
   - {fileID: 1839605269}
   - {fileID: 760915403}
   - {fileID: 1625633461}
-  - {fileID: 867693858}
   m_Father: {fileID: 680339053}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
