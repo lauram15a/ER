@@ -63,9 +63,4 @@ public class CommandsManager : MonoBehaviour
         Time.timeScale = 1f; 
         pauseScreen.SetActive(false);
     }
-
-    //private void QuitGame()
-    //{
-    //    Application.Quit();
-    //}
 }
