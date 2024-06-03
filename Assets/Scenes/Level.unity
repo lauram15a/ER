@@ -14232,9 +14232,9 @@ MonoBehaviour:
   stepsDelayInstance: 0
   normalStepsDelayInstance: 0.5
   speed: 0
-  minSpeed: 2
-  normalSpeed: 4
-  maxSpeed: 6
+  minSpeed: 3
+  normalSpeed: 5
+  maxSpeed: 7
   resetSpeedDelayInstance: 4
   runningType: 0
   playerObjectInstance: {fileID: 863817458}

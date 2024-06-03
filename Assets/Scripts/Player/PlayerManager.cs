@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float maxSpeed = 7;
     [SerializeField] private float resetSpeedDelayInstance = 4f;
     [SerializeField] private RunningType runningType;
+    [SerializeField] private bool isSpeedUpdated = false;
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObjectInstance;
@@ -154,12 +155,21 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateSpeed()
     {
-        if (numSteps % 100 == 0 && numSteps != 0)
+        if (numSteps % 100 == 0 && !isSpeedUpdated && numSteps != 0)
         {
+            Debug.Log("---");
             minSpeed += 1;
             normalSpeed += 1;
             maxSpeed += 1;
+            isSpeedUpdated = true;
+            StartCoroutine(ResetSpeedUpdated());
         }
+    }
+
+    private IEnumerator ResetSpeedUpdated()
+    {
+        yield return new WaitForSeconds(1f);
+        isSpeedUpdated = false;
     }
 
     #endregion
