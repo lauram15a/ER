@@ -29,11 +29,12 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Speed")]
     [SerializeField] private float speed;
-    [SerializeField] private float minSpeed = 2;
-    [SerializeField] private float normalSpeed = 4;
-    [SerializeField] private float maxSpeed = 6;
+    [SerializeField] private float minSpeed = 3;
+    [SerializeField] private float normalSpeed = 5;
+    [SerializeField] private float maxSpeed = 7;
     [SerializeField] private float resetSpeedDelayInstance = 4f;
     [SerializeField] private RunningType runningType;
+    [SerializeField] private bool isSpeedUpdated = false;
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObjectInstance;
@@ -86,6 +87,7 @@ public class PlayerManager : MonoBehaviour
             {
                 AddSteps();
                 CheckGameOver();
+                UpdateSpeed();
             }
         }
     }
@@ -149,6 +151,25 @@ public class PlayerManager : MonoBehaviour
             StopCoroutine(resetSpeedCoroutine);
         }
         resetSpeedCoroutine = StartCoroutine(ResetSpeedAfterDelay());
+    }
+
+    private void UpdateSpeed()
+    {
+        if (numSteps % 100 == 0 && !isSpeedUpdated && numSteps != 0)
+        {
+            Debug.Log("---");
+            minSpeed += 1;
+            normalSpeed += 1;
+            maxSpeed += 1;
+            isSpeedUpdated = true;
+            StartCoroutine(ResetSpeedUpdated());
+        }
+    }
+
+    private IEnumerator ResetSpeedUpdated()
+    {
+        yield return new WaitForSeconds(1f);
+        isSpeedUpdated = false;
     }
 
     #endregion

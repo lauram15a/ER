@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField] private bool isJumping = false;
-    [SerializeField] private bool comingDown = false;
     [SerializeField] private bool canJump = true;
-    [SerializeField] private float upDistanceJump = 3f;
-    [SerializeField] private float jumpDelay = 1f;
+    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpDuration = 1f;
     private float originalYPosition;
+    private float jumpStartTime;
 
     [Header("Animator")]
     [SerializeField] private GameObject playerObject;
@@ -82,43 +82,33 @@ public class PlayerController : MonoBehaviour
                 {
                     isJumping = true;
                     canJump = false;
+                    jumpStartTime = Time.time;
                     playerObject.GetComponent<Animator>().Play("Jump");
-                    StartCoroutine(JumpSequence());
                 }
             }
         }
 
         if (isJumping)
         {
-            if (!comingDown)
+            float elapsedTime = Time.time - jumpStartTime;
+            if (elapsedTime < jumpDuration)
             {
-                transform.Translate(Vector3.up * Time.deltaTime * upDistanceJump, Space.World);
+                float normalizedTime = elapsedTime / jumpDuration;
+                float height = 1.5f * jumpHeight * normalizedTime * (1 - normalizedTime); 
+                Vector3 newPosition = transform.position;
+                newPosition.y = originalYPosition + height;
+                transform.position = newPosition;
             }
-
-            if (comingDown)
+            else
             {
-                transform.Translate(Vector3.down * Time.deltaTime * upDistanceJump, Space.World);
+                isJumping = false;
+                canJump = true;
+                Vector3 newPosition = transform.position;
+                newPosition.y = originalYPosition;
+                transform.position = newPosition;
+                UpdateAnimation();
             }
         }
-    }
-
-    IEnumerator JumpSequence()
-    {
-        float startY = transform.position.y;
-        yield return new WaitForSeconds(jumpDelay);
-        comingDown = true;
-        yield return new WaitForSeconds(jumpDelay);
-
-        isJumping = false;
-        comingDown = false;
-
-        Vector3 currentPosition = transform.position;
-        currentPosition.y = startY;
-        transform.position = currentPosition;
-
-        canJump = true;
-
-        UpdateAnimation();
     }
 
     private void UpdateAnimation()
